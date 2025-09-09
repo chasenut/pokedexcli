@@ -14,9 +14,10 @@ func cleanInput(text string) []string {
 	return splitted
 }
 
-func REPL() {
+func startREPL(c *config) {
 	reader := bufio.NewReader(os.Stdin)
 	scanner := bufio.NewScanner(reader)
+
 	for true {
 		fmt.Print("Pokedex > ")
 		if !scanner.Scan() {
@@ -27,10 +28,10 @@ func REPL() {
 		if len(words) == 0 {
 			continue
 		}
-		if cmd, ok := commands[words[0]]; ok == true {
-			err := cmd.callback()
+		if cmd, ok := commands[words[0]]; ok {
+			err := cmd.callback(c)
 			if err != nil {
-				fmt.Printf("Error durin function callback: %s", err)
+				fmt.Printf("Error during function callback: %s", err)
 			}
 		} else {
 			fmt.Println("Unknown command")
