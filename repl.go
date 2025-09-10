@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/chasenut/pokedexcli/pokeapi"
+	"github.com/chasenut/pokedexcli/internal/pokeapi"
 )
 
 type config struct {
