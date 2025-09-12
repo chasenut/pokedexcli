@@ -34,7 +34,7 @@ func startREPL(c *config) {
 		if cmd, ok := getCommands()[words[0]]; ok {
 			err := cmd.callback(c, words[1:])
 			if err != nil {
-				fmt.Printf("Error during function callback: %s\n", err)
+				fmt.Println(err)
 			}
 		} else {
 			fmt.Println("Unknown command")
@@ -87,6 +87,11 @@ func getCommands() map[string]cliCommand {
 			name: "catch",
 			description: "Catch a Pokémon",
 			callback: commandCatch,
+		},
+		"inspect": cliCommand{
+			name: "inspect",
+			description: "Inspect a Pokémon",
+			callback: commandInspect,
 		},
 	}
 }

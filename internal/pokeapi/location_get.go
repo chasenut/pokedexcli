@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-func (c *Client) GetLocation(location *string) (pokemons Location, err error) {
-	url := base_url + "/location-area/" + *location
+func (c *Client) GetLocation(location string) (pokemons Location, err error) {
+	url := base_url + "/location-area/" + location
 
 	var locationPokemons Location
 	if cached, ok := c.cache.Get(url); ok {
@@ -22,8 +22,8 @@ func (c *Client) GetLocation(location *string) (pokemons Location, err error) {
 	if err != nil {
 		return Location{}, err
 	}
-	resp, err := c.httpClient.Do(req)
 
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return Location{}, err
 	}

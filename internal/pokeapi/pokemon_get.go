@@ -6,11 +6,11 @@ import (
 	"net/http"
 )
 
-func (c *Client) GetPokemon(name *string) (pokemon Pokemon, err error) {
-	url := base_url + "/pokemon/" + *name
+func (c *Client) GetPokemon(name string) (pokemon Pokemon, err error) {
+	url := base_url + "/pokemon/" + name
 
 	var respPokemon Pokemon
-	if cached, ok := c.cache.Get(*name); ok {
+	if cached, ok := c.cache.Get(url); ok {
 		err := json.Unmarshal(cached, &respPokemon)
 		if err != nil {
 			return Pokemon{}, err
@@ -33,7 +33,7 @@ func (c *Client) GetPokemon(name *string) (pokemon Pokemon, err error) {
 	if err != nil {
 		return Pokemon{}, err
 	}
-	c.cache.Add(*name, data)
+	c.cache.Add(url, data)
 
 	err = json.Unmarshal(data, &respPokemon)	
 	if err != nil {

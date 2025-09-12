@@ -1,19 +1,18 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
 func commandExplore(c *config, args []string) error {
 	if len(args) == 0 {
-		fmt.Println("Please provide the name of the location")
-		return nil
+		return errors.New("Please provide the name of the location")
 	}
 	locationName := args[0]
-	locationPokemons, err := c.pokeapiClient.GetLocation(&locationName)
+	locationPokemons, err := c.pokeapiClient.GetLocation(locationName)
 	if err != nil {
-		fmt.Printf("Non-existent location \"%v\"\n", locationName)
-		return nil
+		return errors.New(fmt.Sprintf("Non-existent location \"%v\"\n", locationName))
 	}
 	fmt.Printf("Exploring %s...\nFound Pokemon:\n", locationName)
 	for _, p := range locationPokemons.PokemonEncounters {

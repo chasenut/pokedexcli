@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -22,8 +23,7 @@ func commandMapf(c *config, args []string) error {
 
 func commandMapb(c *config, args []string) error {
 	if c.prevLocationURL == nil {
-		fmt.Println("You are on the first page")
-		return nil
+		return errors.New("You are on the first page")
 	}
 
 	locationResp, err := c.pokeapiClient.GetLocations(c.prevLocationURL)

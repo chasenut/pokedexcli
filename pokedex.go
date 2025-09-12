@@ -13,3 +13,4 @@ func (cfg *config) PokedexList() []pokeapi.Pokemon {
 	}
 	return pokemons
 }
+
