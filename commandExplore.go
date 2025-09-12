@@ -12,7 +12,7 @@ func commandExplore(c *config, args []string) error {
 	locationName := args[0]
 	locationPokemons, err := c.pokeapiClient.GetLocation(locationName)
 	if err != nil {
-		return errors.New(fmt.Sprintf("Non-existent location \"%v\"\n", locationName))
+		return fmt.Errorf("Non-existent location \"%v\"\n", locationName)
 	}
 	fmt.Printf("Exploring %s...\nFound Pokemon:\n", locationName)
 	for _, p := range locationPokemons.PokemonEncounters {
