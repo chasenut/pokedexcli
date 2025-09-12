@@ -4,14 +4,14 @@ import (
 	"fmt"
 )
 
-func commandMapf(cfg *config, args []string) error {
-	locationResp, err := cfg.pokeapiClient.GetLocations(cfg.nextLocationURL)
+func commandMapf(c *config, args []string) error {
+	locationResp, err := c.pokeapiClient.GetLocations(c.nextLocationURL)
 	if err != nil {
 		return err
 	}
 
-	cfg.nextLocationURL = locationResp.Next
-	cfg.prevLocationURL = locationResp.Previous
+	c.nextLocationURL = locationResp.Next
+	c.prevLocationURL = locationResp.Previous
 	
 	for _, loc := range locationResp.Results {
 		fmt.Println(loc.Name)
@@ -20,19 +20,19 @@ func commandMapf(cfg *config, args []string) error {
 	return nil
 }
 
-func commandMapb(cfg *config, args []string) error {
-	if cfg.prevLocationURL == nil {
+func commandMapb(c *config, args []string) error {
+	if c.prevLocationURL == nil {
 		fmt.Println("You are on the first page")
 		return nil
 	}
 
-	locationResp, err := cfg.pokeapiClient.GetLocations(cfg.prevLocationURL)
+	locationResp, err := c.pokeapiClient.GetLocations(c.prevLocationURL)
 	if err != nil {
 		return err
 	}
 
-	cfg.nextLocationURL = locationResp.Next
-	cfg.prevLocationURL = locationResp.Previous
+	c.nextLocationURL = locationResp.Next
+	c.prevLocationURL = locationResp.Previous
 	
 	for _, loc := range locationResp.Results {
 		fmt.Println(loc.Name)

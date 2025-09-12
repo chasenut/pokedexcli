@@ -13,7 +13,6 @@ func (c *Client) GetLocations(pageURL *string) (locations RespLocationsPage, err
 	}
 
 	var locationResp RespLocationsPage
-	// chech if cached
 	if cached, ok := c.cache.Get(url); ok {
 		err := json.Unmarshal(cached, &locationResp)
 		if err != nil {
